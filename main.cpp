@@ -13,8 +13,12 @@ int main () {
 
     while (Loop_Flag){
 
-        int temp1 = 0 , temp2 = 0 , operation_flag = 0;
-        int return_value;
+        double  temp1 = 0 , temp2 = 0;
+        int operation_flag = 0;
+
+
+
+        double  return_value;
         
         std::cout << "Please specify your operation" << std::endl;
 
@@ -25,12 +29,28 @@ int main () {
 
         std::cin  >> operation_flag;
 
+        
+        if (std::cin.fail()) {
+            // Handle invalid input (non-numeric input)
+            std::cin.clear(); // Clear the error state of std::cin
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore the rest of the line
+            std::cout << "Invalid input. Please enter a valid number!" << std::endl;
+            continue; // Restart the loop to get valid input
+        }
+
+
+        
         std::cout << "\nEnter number 1:  ";
         std::cin  >> temp1;
-        
-
+      
+            
+            
         std::cout << "\nEnter number 2:  ";
         std::cin  >> temp2;
+
+        
+       
+            
         
         
 
@@ -52,9 +72,19 @@ int main () {
             break;
         
         case 4:
-
-            return_value = temp1 / temp2;
-            break;
+            try{
+                if ( ( temp2 == 0 ) ){
+                    throw std::runtime_error("you cant divide by 0 !!!!");
+                    break;
+                }
+                
+                }
+            catch ( const std::exception& e){
+                std::cout << "Exception occured:  " << e.what() << std::endl;
+            }
+                return_value = temp1 / temp2;
+                break;
+                
         
         default:
             break;
@@ -66,38 +96,8 @@ int main () {
         std::cout << "Press 0 to quit or 1 to make another operation" << std::endl;
         std::cin >> Loop_Flag;
 
-        
-
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
-
-
-
-
-
     std::cout << "Goodbye" << std::endl;
-
-
 
 }
